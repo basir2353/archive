@@ -1,0 +1,83 @@
+/* Custom styling for the calendar header */
+.react-datepicker__header {
+    background-color: white; /* Your custom background color */
+    border-bottom: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none; /* Remove any borders from the header */
+}
+
+/* Current month title styling */
+.react-datepicker__current-month {
+    color: #333; /* Text color for the month */
+    font-weight: 600;
+    font-size: 1.25rem; /* Font size for the month title */
+}
+
+/* Arrow buttons (Previous/Next Month) */
+.react-datepicker__navigation {
+    top: 18px;
+    width: 18px; /* Slightly smaller arrow size */
+    height: 18px;
+}
+
+.react-datepicker__navigation--previous {
+    border-right-width: 5px; /* Decrease arrow size */
+    border-right-color: #333; /* Arrow color */
+    border: none; /* Remove border from arrows */
+}
+
+.react-datepicker__navigation--next {
+    border-left-width: 5px; /* Decrease arrow size */
+    border-left-color: #333; /* Arrow color */
+    border: none; /* Remove border from arrows */
+}
+
+/* Calendar cells (dates) styling */
+.react-datepicker__day {
+    width: 2.5rem; /* Size of each date cell */
+    height: 2.5rem; /* Adjust the height */
+    line-height: 2.5rem;
+    font-size: 1rem; /* Font size for date numbers */
+    border: none; /* Remove border from date cells */
+}
+
+/* Selected date styling */
+.react-datepicker__day--selected {
+    background-color: #d64cad; /* Custom selected date background color */
+    color: white;
+    font-weight: bold;
+    border: none; /* Remove border from selected date */
+}
+
+/* Remove borders and outlines for the entire datepicker */
+.react-datepicker {
+    font-size: 1rem; /* Font-size for the whole datepicker */
+    width: 300px; /* Width of the calendar */
+    border: none; /* Remove calendar border */
+    box-shadow: none; /* Remove shadow */
+    outline: none; /* Remove any outline */
+}
+
+/* Weekdays (Sun, Mon, etc.) */
+.react-datepicker__day-names {
+    font-size: 1rem; /* Size of weekday names */
+    border: none; /* Remove borders from day names */
+}
+
+/* Container for the entire datepicker */
+.react-datepicker__month-container {
+    width: 100%; /* Ensure the container stretches to the full width */
+    border: none; /* Remove border */
+}
+
+/* Remove focus outline on date selection */
+.react-datepicker__day:focus {
+    outline: none; /* Remove focus outline */
+}
+
+/* Remove border from calendar header */
+.react-datepicker__header {
+    border: none; /* Remove header border */
+    box-shadow: none; /* Remove any box-shadow */
+}
