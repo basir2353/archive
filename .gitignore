@@ -1,42 +1,58 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+.env
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
+# Logs
+logs
+*.log
 yarn-debug.log*
-yarn-error.log*
+.yarn-integrity
 
-# local env files
-.env*.local
+# Dependency directories
+jspm_packages/
+typings/
+bower_components/
 
-# vercel
-.vercel
+# Compiled files
+dist/
+build/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# OS files
+.DS_Store
+Thumbs.db
 
-.contentlayer
+# IDE/Editor specific files
+.vscode/
+.idea/
+*.swp
 
-/public/robots.txt
-/public/sitemap.xml
-/public/sitemap-0.xml
+# Test coverage
+coverage/
 
+# Miscellaneous
+*.lock
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# Sentry Files
+.sentryclirc
+
+# Docker files
+.dockerignore
+
+# Terraform files
+.terraform/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Other
+*.bak
+*.tmp
