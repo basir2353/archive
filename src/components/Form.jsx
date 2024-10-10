@@ -17,6 +17,7 @@ import OvenCleaning from "./ovenCleaning";
 import AddonsExtras from "./AddonsExtras";
 import DeepCleaningExtras from "./deepCleaningExtras";
 import CalendarComponent from "./datePicker";
+import axios from "axios";
 
 const Form = () => {
   //------------------------------STATES------------------------------
@@ -112,7 +113,60 @@ const Form = () => {
   const [addons, setAddons] = useState([]);
 
   const [displayThankyou, setDisplayThankyou] = useState(false);
+  const API_KEY = "c9f73451b441c38c644062cb95159942f929d1b7";
+  const submitData = async () => {
 
+
+    const data = {
+      ovenServiceData,
+      yourInfo,
+      startDate,
+      selectedTime,
+      microwaveCleaningHours,
+      petType,
+      rooms,
+      bathrooms,
+      receptionRooms,
+      kitchens,
+      toilets,
+      hours,
+      ownSupplies,
+      washLinen,
+      ironing,
+      interiorCleaning,
+      planDuration,
+      ovenType,
+      fridgeCleaning,
+      hobCleaning,
+      microwaveCleaning,
+      dishwasher,
+      washingMachine,
+      kitchenCabinets,
+      hooveringCleaning,
+      conservatory,
+      keyPickDrop,
+      windowCleaning,
+      address,
+    };
+
+    console.log(data);
+    try {
+      const response = await axios.post(
+        "https://app.smartsuite.com/7d0ee70655b438e2deec44a409d8c0ebdaf26314", // Replace with actual endpoint
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Data submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting data:", error.response?.data || error.message);
+    }
+    setDisplayThankyou(true)
+  };
   //------------------------------SIDE EFFECTS------------------------------
   useEffect(() => {
     setSteps((prevSteps) => {
@@ -332,228 +386,179 @@ const Form = () => {
             ))}
           </div>
         </div> */}
-        <div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
-          {(displayThankyou && (
-            //<div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
+        <div className="flex flex-col justify-between w-full h-full lg:top-40 md:top-40 lg:w-[450px] md:w-[450px] lg:h-auto md:h-auto lg:static md:static mb-40 lg:rounded-2xl px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28">
+          {displayThankyou ? (
             <>
               <Thankyou />
             </>
-            //</div>
-          )) || (
-              // <div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
-              <>
-                <div>
-                  {(stepNumber === 1 && (
-                    <YourInfo
-                      onChangeYourInfo={changeYourInfo}
-                      yourInfo={yourInfo}
-                      currentStep={stepNumber}
-                      isEmpty={isEmpty}
-                    />
-                  )) ||
-                    (stepNumber === 2 && (
-                      <Plan
-                        onSelectAddress={selectAddress}
-                        // onToggleDuration={toggleDuration}
+          ) : (
+            <>
+              <div>
+                {stepNumber === 1 && (
+                  <YourInfo
+                    onChangeYourInfo={changeYourInfo}
+                    yourInfo={yourInfo}
+                    currentStep={stepNumber}
+                    isEmpty={isEmpty}
+                  />
+                )}
+                {stepNumber === 2 && (
+                  <Plan
+                    onSelectAddress={selectAddress}
+                    currentStep={stepNumber}
+                    isPlanEmpty={isPlanEmpty}
+                  />
+                )}
+                {stepNumber === 3 && (
+                  <>
+                    {yourInfo.service === "house_cleaning" ? (
+                      <Addons
+                        onBoxCheck={checkBox}
                         currentStep={stepNumber}
-                        // planOptions={planOptions}
-                        isPlanEmpty={isPlanEmpty}
-                      // planDuration={planDuration}
+                        addonOptions={addonOptions}
+                        planDuration={planDuration}
+                        rooms={rooms}
+                        setRooms={setRooms}
+                        bathrooms={bathrooms}
+                        setBathrooms={setBathrooms}
+                        hours={hours}
+                        setHours={setHours}
+                        ownSupplies={ownSupplies}
+                        setOwnSupplies={setOwnSupplies}
+                        washLinen={washLinen}
+                        setWashLinen={setWashLinen}
                       />
-                    )) ||
-                    (stepNumber === 3 && (
-
-                      yourInfo.service == "house_cleaning" ?
-                        <Addons
-                          onBoxCheck={checkBox}
-                          currentStep={stepNumber}
-                          addonOptions={addonOptions}
-                          planDuration={planDuration}
-                          // Pass addon states as props
-                          rooms={rooms}
-                          setRooms={setRooms}
-                          bathrooms={bathrooms}
-                          setBathrooms={setBathrooms}
-                          hours={hours}
-                          setHours={setHours}
-                          ownSupplies={ownSupplies}
-                          setOwnSupplies={setOwnSupplies}
-                          washLinen={washLinen}
-                          setWashLinen={setWashLinen}
-                        /> : yourInfo.service == "deep_cleaning" ? <DeepCleaning currentStep={stepNumber}
-                          planDuration={planDuration}
-                          rooms={rooms}
-                          setRooms={setRooms}
-                          bathrooms={bathrooms}
-                          setBathrooms={setBathrooms}
-                          receptionRooms={receptionRooms}
-                          setReceptionRooms={setReceptionRooms}
-                          kitchens={kitchens}
-                          setKitchens={setKitchens}
-                          toilets={toilets}
-                          setToilets={setToilets}
-                          hours={hours}
-                          setHours={setHours}
-                          ownSupplies={ownSupplies}
-                          setOwnSupplies={setOwnSupplies}
-                          washLinen={washLinen}
-                          setWashLinen={setWashLinen} /> : yourInfo.service == "end_tenancy_cleaning" ? <EndTenancy currentStep={stepNumber}
-                            rooms={rooms}
-                            setRooms={setRooms}
-                            bathrooms={bathrooms}
-                            setBathrooms={setBathrooms}
-                            receptionRooms={receptionRooms}
-                            setReceptionRooms={setReceptionRooms}
-                            kitchens={kitchens}
-                            setKitchens={setKitchens}
-                            toilets={toilets}
-                            setToilets={setToilets}
-                            hours={hours}
-                            setHours={setHours}
-                            ownSupplies={ownSupplies}
-                            setOwnSupplies={setOwnSupplies}
-                            washLinen={washLinen}
-                            setWashLinen={setWashLinen}
-                            ironing={ironing}
-                            setIroning={setIroning}
-                            interiorCleaning={interiorCleaning}
-                            setInteriorCleaning={setInteriorCleaning} /> : <OvenCleaning onChangeOvenService={onChangeServiceOven} />
-                    )) ||
-
-                    (stepNumber === 4 && (
-
-                      stepNumber === 4 && yourInfo.service == "house_cleaning" ?
-                        <AddonsExtras
-                          ironing={ironing}
-                          setIroning={setIroning}
-                          interiorCleaning={interiorCleaning}
-                          setInteriorCleaning={setInteriorCleaning}
-                          microwaveCleaningHours={microwaveCleaningHours}
-                          setMicrowaveCleaningHours={setMicrowaveCleaningHours}
-                          ownSupplies={ownSupplies}
-                          setOwnSupplies={setOwnSupplies}
-                          petType={petType}
-                          setPetType={setPetType}
-                        /> : stepNumber === 4 && yourInfo.service == "deep_cleaning" ? stepNumber === 4 && <DeepCleaningExtras ovenType={ovenType}
-                          setOvenType={setOvenType}
-                          fridgeCleaning={fridgeCleaning}
-                          setFridgeCleaning={setFridgeCleaning}
-                          hobCleaning={hobCleaning}
-                          setHobCleaning={setHobCleaning}
-                          microwaveCleaning={microwaveCleaning}
-                          setMicrowaveCleaning={setMicrowaveCleaning}
-                          dishwasher={dishwasher}
-                          setDishwasher={setDishwasher}
-                          washingMachine={washingMachine}
-                          setWashingMachine={setWashingMachine}
-                          kitchenCabinets={kitchenCabinets}
-                          setKitchenCabinets={setKitchenCabinets}
-                          hooveringCleaning={hooveringCleaning}
-                          setHooveringCleaning={setHooveringCleaning}
-                          conservatory={conservatory}
-                          setConservatory={setConservatory}
-                          keyPickDrop={keyPickDrop}
-                          setKeyPickDrop={setKeyPickDrop}
-                          windowCleaning={windowCleaning}
-                          setWindowCleaning={setWindowCleaning} /> : stepNumber === 4 && yourInfo.service == "end_tenancy_cleaning" ? <DeepCleaningExtras ovenType={ovenType}
-                            setOvenType={setOvenType}
-                            fridgeCleaning={fridgeCleaning}
-                            setFridgeCleaning={setFridgeCleaning}
-                            hobCleaning={hobCleaning}
-                            setHobCleaning={setHobCleaning}
-                            microwaveCleaning={microwaveCleaning}
-                            setMicrowaveCleaning={setMicrowaveCleaning}
-                            dishwasher={dishwasher}
-                            setDishwasher={setDishwasher}
-                            washingMachine={washingMachine}
-                            setWashingMachine={setWashingMachine}
-                            kitchenCabinets={kitchenCabinets}
-                            setKitchenCabinets={setKitchenCabinets}
-                            hooveringCleaning={hooveringCleaning}
-                            setHooveringCleaning={setHooveringCleaning}
-                            conservatory={conservatory}
-                            setConservatory={setConservatory}
-                            keyPickDrop={keyPickDrop}
-                            setKeyPickDrop={setKeyPickDrop}
-                            windowCleaning={windowCleaning}
-                            setWindowCleaning={setWindowCleaning}
-                            currentStep={stepNumber}
-                            addonOptions={addonOptions}
-                            planDuration={planDuration} /> : <DeepCleaningExtras ovenType={ovenType}
-                              setOvenType={setOvenType}
-                              fridgeCleaning={fridgeCleaning}
-                              setFridgeCleaning={setFridgeCleaning}
-                              hobCleaning={hobCleaning}
-                              setHobCleaning={setHobCleaning}
-                              microwaveCleaning={microwaveCleaning}
-                              setMicrowaveCleaning={setMicrowaveCleaning}
-                              dishwasher={dishwasher}
-                              setDishwasher={setDishwasher}
-                              washingMachine={washingMachine}
-                              setWashingMachine={setWashingMachine}
-                              kitchenCabinets={kitchenCabinets}
-                              setKitchenCabinets={setKitchenCabinets}
-                              hooveringCleaning={hooveringCleaning}
-                              setHooveringCleaning={setHooveringCleaning}
-                              conservatory={conservatory}
-                              setConservatory={setConservatory}
-                              keyPickDrop={keyPickDrop}
-                              setKeyPickDrop={setKeyPickDrop}
-                              windowCleaning={windowCleaning}
-                              setWindowCleaning={setWindowCleaning}
-                              currentStep={stepNumber}
-                              addonOptions={addonOptions}
-                              planDuration={planDuration} />
-                    )) ||
-                    (stepNumber === 5 && (
-
-                      <CalendarComponent
-                        startDate={startDate}
-                        setStartDate={setStartDate}
-                        selectedTime={selectedTime}
-                        setSelectedTime={setSelectedTime} />
-                    ))}
-                </div>
-                <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center w-[700px]]">
-                  {/* {stepNumber != 1 && (
-              <div
-                onClick={prevStep}
-                className={`font-medium text-[#9699ab] cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
-              >
-                Go back
+                    ) : yourInfo.service === "deep_cleaning" ? (
+                      <DeepCleaning
+                        currentStep={stepNumber}
+                        planDuration={planDuration}
+                        rooms={rooms}
+                        setRooms={setRooms}
+                        bathrooms={bathrooms}
+                        setBathrooms={setBathrooms}
+                        receptionRooms={receptionRooms}
+                        setReceptionRooms={setReceptionRooms}
+                        kitchens={kitchens}
+                        setKitchens={setKitchens}
+                        toilets={toilets}
+                        setToilets={setToilets}
+                        hours={hours}
+                        setHours={setHours}
+                        ownSupplies={ownSupplies}
+                        setOwnSupplies={setOwnSupplies}
+                        washLinen={washLinen}
+                        setWashLinen={setWashLinen}
+                      />
+                    ) : yourInfo.service === "end_tenancy_cleaning" ? (
+                      <EndTenancy
+                        currentStep={stepNumber}
+                        rooms={rooms}
+                        setRooms={setRooms}
+                        bathrooms={bathrooms}
+                        setBathrooms={setBathrooms}
+                        receptionRooms={receptionRooms}
+                        setReceptionRooms={setReceptionRooms}
+                        kitchens={kitchens}
+                        setKitchens={setKitchens}
+                        toilets={toilets}
+                        setToilets={setToilets}
+                        hours={hours}
+                        setHours={setHours}
+                        ownSupplies={ownSupplies}
+                        setOwnSupplies={setOwnSupplies}
+                        washLinen={washLinen}
+                        setWashLinen={setWashLinen}
+                        ironing={ironing}
+                        setIroning={setIroning}
+                        interiorCleaning={interiorCleaning}
+                        setInteriorCleaning={setInteriorCleaning}
+                      />
+                    ) : (
+                      <OvenCleaning onChangeOvenService={onChangeServiceOven} />
+                    )}
+                  </>
+                )}
+                {stepNumber === 4 && (
+                  <>
+                    {yourInfo.service === "house_cleaning" ? (
+                      <AddonsExtras
+                        ironing={ironing}
+                        setIroning={setIroning}
+                        interiorCleaning={interiorCleaning}
+                        setInteriorCleaning={setInteriorCleaning}
+                        microwaveCleaningHours={microwaveCleaningHours}
+                        setMicrowaveCleaningHours={setMicrowaveCleaningHours}
+                        ownSupplies={ownSupplies}
+                        setOwnSupplies={setOwnSupplies}
+                        petType={petType}
+                        setPetType={setPetType}
+                      />
+                    ) : (
+                      <DeepCleaningExtras
+                        ovenType={ovenType}
+                        setOvenType={setOvenType}
+                        fridgeCleaning={fridgeCleaning}
+                        setFridgeCleaning={setFridgeCleaning}
+                        hobCleaning={hobCleaning}
+                        setHobCleaning={setHobCleaning}
+                        microwaveCleaning={microwaveCleaning}
+                        setMicrowaveCleaning={setMicrowaveCleaning}
+                        dishwasher={dishwasher}
+                        setDishwasher={setDishwasher}
+                        washingMachine={washingMachine}
+                        setWashingMachine={setWashingMachine}
+                        kitchenCabinets={kitchenCabinets}
+                        setKitchenCabinets={setKitchenCabinets}
+                        hooveringCleaning={hooveringCleaning}
+                        setHooveringCleaning={setHooveringCleaning}
+                        conservatory={conservatory}
+                        setConservatory={setConservatory}
+                        keyPickDrop={keyPickDrop}
+                        setKeyPickDrop={setKeyPickDrop}
+                        windowCleaning={windowCleaning}
+                        setWindowCleaning={setWindowCleaning}
+                      />
+                    )}
+                  </>
+                )}
+                {stepNumber === 5 && (
+                  <CalendarComponent
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    selectedTime={selectedTime}
+                    setSelectedTime={setSelectedTime}
+                  />
+                )}
               </div>
-            )} */}
-                  <div
-                    onClick={() => {
-                      if (yourInfo.service === 'oven_cleaning' && stepNumber === 4) {
-                        changeClick();
-                      } else {
-                        prevStep();
-                      }
-                    }}
-                    className={`font-medium text-[#9699ab] select-none cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
-                  >
-                    Go back
-                  </div>
-                  {stepNumber > 2 && <>  {stepNumber === 5 ? (
-                    <div
-                      onClick={() => { setDisplayThankyou(true) }}
-                      className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
-                    >
-                      Confirm
-                    </div>
-                  ) : (
-                    <div
-                      onClick={nextStep}
-                      className="font-medium bg-[#02295a] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
-                    >
-                      Next Step
-                    </div>
-                  )}</>}
+              <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 items-center w-[700px]">
+                <div
+                  onClick={prevStep}
+                  className={`font-medium text-[#9699ab] select-none cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
+                >
+                  Go back
                 </div>
-              </>
-              // </div>
-            )}
+                {stepNumber > 2 && (
+                  <>
+                    {stepNumber === 5 ? (
+                      <div
+                        onClick={submitData}
+                        className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
+                      >
+                        Confirm
+                      </div>
+                    ) : (
+                      <div
+                        onClick={nextStep}
+                        className="font-medium bg-[#02295a] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
+                      >
+                        Next Step
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

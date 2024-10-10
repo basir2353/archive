@@ -81,3 +81,50 @@
     border: none; /* Remove header border */
     box-shadow: none; /* Remove any box-shadow */
 }
+
+/* Responsive styling */
+@media (max-width: 767px) {
+  /* For small screens, make the calendar smaller */
+  .react-datepicker {
+    width: 240px; /* Smaller width for mobile */
+    font-size: 0.85rem; /* Slightly smaller font size for mobile */
+  }
+
+  .react-datepicker__day {
+    width: 2rem; /* Smaller date cells */
+    height: 2rem; /* Adjust the height */
+    line-height: 2rem;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1rem; /* Smaller font size for month title */
+  }
+
+  .react-datepicker__navigation {
+    width: 16px; /* Adjust arrow size */
+    height: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* For large screens, keep the regular size */
+  .react-datepicker {
+    width: 300px; /* Regular width for larger screens */
+    font-size: 1rem; /* Regular font size for larger screens */
+  }
+
+  .react-datepicker__day {
+    width: 2.5rem; /* Regular date cell size */
+    height: 2.5rem;
+    line-height: 2.5rem;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1.25rem; /* Regular font size for month title */
+  }
+
+  .react-datepicker__navigation {
+    width: 18px; /* Regular arrow size */
+    height: 18px;
+  }
+}

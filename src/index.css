@@ -2,13 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Set background color for small screens and background image for large screens */
 body {
-  background-image: url('/bg-img.jpg') ;
+  background-color: white; /* Background color for small screens */
   font-family: ubuntu-regular;
 }
 
 @media (min-width: 765px) {
   body {
+    background-image: url('/bg-img.jpg'); /* Background image for large screens */
+    background-size: cover; /* Make sure the image covers the full screen */
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,6 +20,7 @@ body {
   }
 }
 
+/* Custom font settings */
 .font-bold {
   font-family: ubuntu-bold;
 }

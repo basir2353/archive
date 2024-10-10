@@ -24,7 +24,7 @@ const CalendarComponent = ({ startDate, setStartDate, selectedTime, setSelectedT
                     <h2 className="text-lg font-semibold text-gray-800 mb-4">What date & time?</h2>
 
                     {/* Calendar */}
-                    <div className="flex justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                         <div className="flex-[3]">
                             <DatePicker
                                 selected={startDate}
