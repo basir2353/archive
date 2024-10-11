@@ -7,7 +7,7 @@ const YourInfo = ({ onChangeYourInfo }) => {
     {
       id: 1,
       name: "House Cleaning",
-      des: 'Regular cleaning of house',
+      des: 'Routine Care for a tidy home',
       label: "Name",
       placeholder: "e.g John Doe",
       value: 'house_cleaning',
@@ -16,31 +16,31 @@ const YourInfo = ({ onChangeYourInfo }) => {
     {
       id: 2,
       name: "Deep Cleaning",
-      des: 'Regular cleaning of house',
+      des: 'Detailed cleaning every corner',
       label: "Email Address",
       placeholder: "e.g john@gmail.com",
       value: 'deep_cleaning',
-      src: '/numberofbathrooms.svg'
+      src: '/Deep Cleaning (2).svg'
 
     },
     {
       id: 3,
       name: "End of Tenancy Cleaning",
-      des: 'Regular cleaning of house',
+      des: 'Move Out Cleaning Done Right',
       label: "Phone Number",
       placeholder: "e.g +1 234 567 890",
       value: 'end_tenancy_cleaning',
-      src: '/clockroomstoilet.svg'
+      src: '/End of Tendency (2).svg'
 
     },
     {
       id: 3,
       name: "Oven Cleaning",
-      des: 'Regular cleaning of house',
+      des: 'A Spotless grease-free oven ',
       label: "Phone Number",
       placeholder: "e.g +1 234 567 890",
       value: 'oven_cleaning',
-      src: '/noofbedrooms.svg'
+      src: '/Oven Cleaning.svg'
     }
   ]);
 
