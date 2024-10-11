@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import HeadingTwo from "./headingTwo";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 const Plan = ({ onSelectAddress }) => {
   const [keyAddress, setKeyAddress] = useState(""); // Stores the user's input
   const [suggestions, setSuggestions] = useState([]); // Stores the address suggestions
   const [loading, setLoading] = useState(false); // Loading state for API call
   const [error, setError] = useState(null); // Error state
+  const [userLocation, setUserLocation] = useState(null); // User's geolocation
 
-  // Effect to fetch data from Photon API when the user types
+  // Effect to fetch suggestions based on user input
   useEffect(() => {
-    if (keyAddress.length > 2) { // Only fetch when the input length is greater than 2
+    if (keyAddress.length > 2) {
       setLoading(true);
       setError(null);
 
@@ -28,6 +30,44 @@ const Plan = ({ onSelectAddress }) => {
       setSuggestions([]); // Clear suggestions if input is too short
     }
   }, [keyAddress]);
+
+  // Function to get the user's current location
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ latitude, longitude });
+          // Perform reverse geocoding
+          reverseGeocode(latitude, longitude);
+        },
+        (err) => {
+          setError("Unable to retrieve your location");
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser");
+    }
+  };
+
+  // Function to perform reverse geocoding based on lat/lon
+  const reverseGeocode = (latitude, longitude) => {
+    setLoading(true);
+    axios
+      .get(`https://photon.komoot.io/reverse?lat=${latitude}&lon=${longitude}`)
+      .then((response) => {
+        const place = response.data.features[0];
+        if (place) {
+          const address = `${place.properties.name}, ${place.properties.city}, ${place.properties.countrycode}`;
+          setKeyAddress(address); // Automatically fill the input with the address
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Failed to fetch address");
+        setLoading(false);
+      });
+  };
 
   return (
     <div>
@@ -56,6 +96,13 @@ const Plan = ({ onSelectAddress }) => {
                 >
                   &times;
                 </button>
+                {/* Button to automatically fill location */}
+                <button
+                  className="absolute right-10 top-2 text-blue-500 hover:text-blue-700"
+                  onClick={getCurrentLocation}
+                >
+                  <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
+                  </button>
               </div>
             </div>
 
@@ -75,8 +122,8 @@ const Plan = ({ onSelectAddress }) => {
                       className="p-2 cursor-pointer hover:bg-gray-200"
                       onClick={() => onSelectAddress(suggestion)}
                     >
-                      {suggestion.properties.name}, {suggestion.properties.city} {suggestion.properties.countrycode},{" "}
-                      {suggestion.properties.country}
+                      {suggestion.properties.name}, {suggestion.properties.city}{" "}
+                      {suggestion.properties.countrycode}, {suggestion.properties.country}
                     </li>
                   ))}
                 </ul>
