@@ -17,7 +17,7 @@ const DeepCleaningExtras = ({ addonOptions }) => {
     const [keyPickDrop, setKeyPickDrop] = useState(false);
 
     // State for interior window cleaning
-    const [windowCleaning, setWindowCleaning] = useState(1);
+    const [windowCleaning, setWindowCleaning] = useState(0);
     const maxWindowCleaning = 10;
 
     // Increment and Decrement functions for window cleaning
@@ -34,8 +34,8 @@ const DeepCleaningExtras = ({ addonOptions }) => {
     return (
         <div>
             <SectionHeading
-                title="Deep Cleaning Extras"
-                desc="Add-ons help enhance your cleaning experience."
+                title="Extra Services"
+
             />
 
             {/* Oven Type Selection */}

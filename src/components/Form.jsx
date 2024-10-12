@@ -40,26 +40,29 @@ const Form = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("12:30 PM");
 
-  const [microwaveCleaningHours, setMicrowaveCleaningHours] = useState(1.75);
+  const [microwaveCleaningHours, setMicrowaveCleaningHours] = useState(0);
 
   const [petType, setPetType] = useState("None");
 
-  const [rooms, setRooms] = useState(1);
+  const [rooms, setRooms] = useState(0);
   const [bathrooms, setBathrooms] = useState(0);
   const [kitchens, setKitchens] = useState(0);
   const [toilets, setToilets] = useState(0);
+  const [address, setAddress] = useState(""); // Stores the user's input for address
+  const [city, setCity] = useState(""); // Stores the user's input for city
+  const [zipCode, setZipCode] = useState("");
   const [hours, setHours] = useState(0);
   const [ownSupplies, setOwnSupplies] = useState(true);
   const [washLinen, setWashLinen] = useState(false);
-  const [receptionRooms, setReceptionRooms] = useState(1); // New
+  const [receptionRooms, setReceptionRooms] = useState(0); // New
   const [kitchenIncluded, setKitchenIncluded] = useState(false); // New toggle
-  const [cloakroomToilets, setCloakroomToilets] = useState(1); // New
+  const [cloakroomToilets, setCloakroomToilets] = useState(0); // New
   const [hobAndChimneyCleaning, setHobAndChimneyCleaning] = useState(false);
   const [name, setName] = useState(""); // Stores the user's input for name
   const [phone, setPhone] = useState(""); // Stores the user's input for phone number
   const [email, setEmail] = useState("");
-  const [ironing, setIroning] = useState(1);
-  const [interiorCleaning, setInteriorCleaning] = useState(1);
+  const [ironing, setIroning] = useState(0);
+  const [interiorCleaning, setInteriorCleaning] = useState(0);
 
   const [isEmpty, setIsEmpty] = useState(false);
   const [isPlanEmpty, setIsPlanEmpty] = useState(false);
@@ -84,7 +87,7 @@ const Form = () => {
     yearly: false,
   });
 
-  const [address, setAddress] = useState(null);
+
 
   const [addonOptions, setAddonOptions] = useState([
     {
@@ -413,6 +416,9 @@ const Form = () => {
                     onSelectAddress={selectAddress}
                     currentStep={stepNumber}
                     isPlanEmpty={isPlanEmpty}
+                    address={address} setAddress={setAddress}
+                    city={city} setCity={setCity}// Stores the user's input for city
+                    zipCode={zipCode} setZipCode={setZipCode}
                   />
                 )}
                 {stepNumber === 3 && (
@@ -552,7 +558,7 @@ const Form = () => {
                 >
                   Go back
                 </div>
-                {stepNumber > 2 && (
+                {stepNumber > 1 && (
                   <>
                     {stepNumber === 6 ? (
                       <div

@@ -1,31 +1,8 @@
 import React, { useState } from "react";
 import HeadingTwo from "./headingTwo";
 
-const Plan = ({ onSelectAddress }) => {
-  const [address, setAddress] = useState(""); // Stores the user's input for address
-  const [city, setCity] = useState(""); // Stores the user's input for city
-  const [zipCode, setZipCode] = useState(""); // Stores the user's input for zip/postal code
-  const [error, setError] = useState(null); // Error state
-  const [hoverState, setHoverState] = useState(0); // Tracks hover state (0 for address, 1 for city, 2 for zip)
+const Plan = ({ onSelectAddress, address, setAddress, city, setCity, zipCode, setZipCode }) => {
 
-  // Function to handle submission and combine the address parts
-  const handleSubmit = () => {
-    if (address && city && zipCode) {
-      const fullAddress = `${address}, ${city}, ${zipCode}`;
-      onSelectAddress(fullAddress);
-      console.log(fullAddress);
-    } else {
-      setError("Please fill out all fields");
-    }
-  };
-
-  // Function to switch hover text based on hoverState
-  const handleHoverText = () => {
-    if (hoverState === 0) return address ? address : "Hover for Address";
-    if (hoverState === 1) return city ? city : "Hover for City";
-    if (hoverState === 2) return zipCode ? zipCode : "Hover for Zip Code";
-    return "Submit Address";
-  };
 
   return (
     <div>
@@ -77,20 +54,6 @@ const Plan = ({ onSelectAddress }) => {
                   />
                 </div>
               </div>
-            </div>
-
-            {/* Error Message */}
-            {error && <p className="text-red-500 text-center mt-4">{error}</p>}
-
-            {/* Submit Button */}
-            <div className="flex justify-center">
-              <button
-                onClick={handleSubmit}
-                className="border border-black text-black px-4 py-2 rounded-md hover:bg-gray-100"
-                style={{ backgroundColor: "transparent" }}
-              >
-Submit
-              </button>
             </div>
           </div>
         </div>

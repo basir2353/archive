@@ -1,4 +1,5 @@
 import React from "react";
+import SectionHeading from "./SectionHeading";
 
 const AddonsExtras = ({
   ironing,
@@ -27,6 +28,10 @@ const AddonsExtras = ({
 
   return (
     <div>
+      <SectionHeading
+        title="Extra services"
+        desc=""
+      />
       {/* Ironing Section */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex-[3]">

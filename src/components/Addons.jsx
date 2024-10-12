@@ -44,7 +44,7 @@ const Addons = ({
           {/* Rooms */}
           <div className="flex justify-between items-center mb-4">
             <div className="flex-[3]">
-              <p className="text-lg text-gray-800">Rooms</p>
+              <p className="text-lg text-gray-800">Bedrooms</p>
               <p className="text-sm text-gray-500">rooms including bedrooms and other rooms</p>
             </div>
             <div className="flex items-center flex-1">
