@@ -557,7 +557,7 @@ const Form = () => {
                     {stepNumber === 6 ? (
                       <div
                         onClick={submitData}
-                        className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
+                        className="font-medium bg-transparent select-none text-black border-2 border-black py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
                       >
                         Confirm
                       </div>

@@ -155,12 +155,11 @@ const Addons = ({
             </div>
           </div>
 
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          {/* <h3 className="text-lg font-semibold text-gray-800 mb-4">
             Supplies & linen requests
-          </h3>
+          </h3> */}
 
-          {/* Own Supplies */}
-          <div className="flex justify-between items-center mb-4">
+          {/* <div className="flex justify-between items-center mb-4">
             <span className="text-lg text-gray-800">I have my own supplies</span>
             <button
               onClick={() => setOwnSupplies(!ownSupplies)}
@@ -170,10 +169,9 @@ const Addons = ({
                 className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${ownSupplies ? "translate-x-6" : "translate-x-1"}`}
               ></span>
             </button>
-          </div>
+          </div> */}
 
-          {/* Wash and Dry Linen */}
-          <div className="flex justify-between items-center mb-4">
+          {/* <div className="flex justify-between items-center mb-4">
             <span className="text-lg text-gray-800">Wash and dry linen and towels</span>
             <button
               onClick={() => setWashLinen(!washLinen)}
@@ -183,7 +181,7 @@ const Addons = ({
                 className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${washLinen ? "translate-x-6" : "translate-x-1"}`}
               ></span>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

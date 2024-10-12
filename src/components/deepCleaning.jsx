@@ -118,31 +118,26 @@ const DeepCleaning = ({ currentStep, onBoxCheck, planDuration, addonOptions }) =
                         </div>
                     </div>
 
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Supplies & linen requests</h3>
+                    {/* <h3 className="text-lg font-semibold text-gray-800 mb-4">Supplies & linen requests</h3>
 
-                    {/* Own Supplies */}
                     <div className="flex justify-between items-center mb-4">
                         <span className="text-lg text-gray-800">I have my own supplies</span>
                         <button onClick={() => setOwnSupplies(!ownSupplies)} className={`relative inline-flex items-center h-6 rounded-full w-11 ${ownSupplies ? 'bg-pink-500' : 'bg-gray-300'}`}>
                             <span className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${ownSupplies ? 'translate-x-6' : 'translate-x-1'}`}></span>
                         </button>
                     </div>
-
-                    {/* Wash and Dry Linen */}
                     <div className="flex justify-between items-center mb-4">
                         <span className="text-lg text-gray-800">Wash and dry linen and towels</span>
                         <button onClick={() => setWashLinen(!washLinen)} className={`relative inline-flex items-center h-6 rounded-full w-11 ${washLinen ? 'bg-pink-500' : 'bg-gray-300'}`}>
                             <span className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${washLinen ? 'translate-x-6' : 'translate-x-1'}`}></span>
                         </button>
                     </div>
-
-                    {/* Inside Kitchen Cabinets */}
                     <div className="flex justify-between items-center mb-4">
                         <span className="text-lg text-gray-800">Inside Kitchen Cabinets</span>
                         <button onClick={() => setInsideKitchenCabinets(!insideKitchenCabinets)} className={`relative inline-flex items-center h-6 rounded-full w-11 ${insideKitchenCabinets ? 'bg-pink-500' : 'bg-gray-300'}`}>
                             <span className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${insideKitchenCabinets ? 'translate-x-6' : 'translate-x-1'}`}></span>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
