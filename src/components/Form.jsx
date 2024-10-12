@@ -18,6 +18,7 @@ import AddonsExtras from "./AddonsExtras";
 import DeepCleaningExtras from "./deepCleaningExtras";
 import CalendarComponent from "./datePicker";
 import axios from "axios";
+import Contact from "./contact";
 
 const Form = () => {
   //------------------------------STATES------------------------------
@@ -44,14 +45,19 @@ const Form = () => {
   const [petType, setPetType] = useState("None");
 
   const [rooms, setRooms] = useState(1);
-  const [bathrooms, setBathrooms] = useState(1);
-  const [receptionRooms, setReceptionRooms] = useState(1);
-  const [kitchens, setKitchens] = useState(1);
-  const [toilets, setToilets] = useState(1);
-  const [hours, setHours] = useState(1.75);
+  const [bathrooms, setBathrooms] = useState(0);
+  const [kitchens, setKitchens] = useState(0);
+  const [toilets, setToilets] = useState(0);
+  const [hours, setHours] = useState(0);
   const [ownSupplies, setOwnSupplies] = useState(true);
   const [washLinen, setWashLinen] = useState(false);
-
+  const [receptionRooms, setReceptionRooms] = useState(1); // New
+  const [kitchenIncluded, setKitchenIncluded] = useState(false); // New toggle
+  const [cloakroomToilets, setCloakroomToilets] = useState(1); // New
+  const [hobAndChimneyCleaning, setHobAndChimneyCleaning] = useState(false);
+  const [name, setName] = useState(""); // Stores the user's input for name
+  const [phone, setPhone] = useState(""); // Stores the user's input for phone number
+  const [email, setEmail] = useState("");
   const [ironing, setIroning] = useState(1);
   const [interiorCleaning, setInteriorCleaning] = useState(1);
 
@@ -70,7 +76,7 @@ const Form = () => {
   const [hooveringCleaning, setHooveringCleaning] = useState(false);
   const [conservatory, setConservatory] = useState(false);
   const [keyPickDrop, setKeyPickDrop] = useState(false);
-  const [windowCleaning, setWindowCleaning] = useState(1);
+  const [windowCleaning, setWindowCleaning] = useState(0);
 
   const [plan, setPlan] = useState({
     title: "",
@@ -413,14 +419,16 @@ const Form = () => {
                   <>
                     {yourInfo.service === "house_cleaning" ? (
                       <Addons
-                        onBoxCheck={checkBox}
-                        currentStep={stepNumber}
-                        addonOptions={addonOptions}
-                        planDuration={planDuration}
                         rooms={rooms}
                         setRooms={setRooms}
                         bathrooms={bathrooms}
                         setBathrooms={setBathrooms}
+                        receptionRooms={receptionRooms} // New field
+                        setReceptionRooms={setReceptionRooms} // New field
+                        kitchenIncluded={kitchenIncluded} // New field
+                        setKitchenIncluded={setKitchenIncluded} // New field
+                        cloakroomToilets={cloakroomToilets} // New field
+                        setCloakroomToilets={setCloakroomToilets} // New field
                         hours={hours}
                         setHours={setHours}
                         ownSupplies={ownSupplies}
@@ -492,6 +500,8 @@ const Form = () => {
                         setOwnSupplies={setOwnSupplies}
                         petType={petType}
                         setPetType={setPetType}
+                        hobAndChimneyCleaning={hobAndChimneyCleaning} // New
+                        setHobAndChimneyCleaning={setHobAndChimneyCleaning} // New
                       />
                     ) : (
                       <DeepCleaningExtras
@@ -529,6 +539,11 @@ const Form = () => {
                     setSelectedTime={setSelectedTime}
                   />
                 )}
+                {
+                  stepNumber === 6 && (
+                    <Contact name={name} setName={setName} phone={phone} setPhone={setPhone} email={email} setEmail={setEmail} />
+                  )
+                }
               </div>
               <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 items-center w-[700px]">
                 <div
@@ -539,7 +554,7 @@ const Form = () => {
                 </div>
                 {stepNumber > 2 && (
                   <>
-                    {stepNumber === 5 ? (
+                    {stepNumber === 6 ? (
                       <div
                         onClick={submitData}
                         className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"

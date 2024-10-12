@@ -10,12 +10,14 @@ const AddonsExtras = ({
   ownSupplies,
   setOwnSupplies,
   petType,
-  setPetType
+  setPetType,
+  hobAndChimneyCleaning, // New state for hob and chimney cleaning
+  setHobAndChimneyCleaning, // New setter function for hob and chimney cleaning
 }) => {
   // Define max values
   const maxIroning = 10;
   const maxInteriorCleaning = 10;
-  const maxMicrowaveCleaningHours = 7.5;
+  const maxMicrowaveCleaningHours = 8;
 
   // Increment and decrement functions
   const increment = (value, setter, max) =>
@@ -85,7 +87,7 @@ const AddonsExtras = ({
         </div>
         <div className="flex items-center flex-1">
           <button
-            onClick={() => decrement(0.25, setMicrowaveCleaningHours, 1.5)}
+            onClick={() => decrement(1, setMicrowaveCleaningHours, 0)}
             className="py-[0px] px-[8px] bg-gray-100 rounded-full"
           >
             -
@@ -94,7 +96,7 @@ const AddonsExtras = ({
             {microwaveCleaningHours}
           </span>
           <button
-            onClick={() => increment(0.25, setMicrowaveCleaningHours, maxMicrowaveCleaningHours)}
+            onClick={() => increment(1, setMicrowaveCleaningHours, maxMicrowaveCleaningHours)}
             className={`py-[0px] px-[8px] bg-gray-100 rounded-full ${microwaveCleaningHours === maxMicrowaveCleaningHours ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={microwaveCleaningHours === maxMicrowaveCleaningHours}
           >
@@ -103,17 +105,39 @@ const AddonsExtras = ({
         </div>
       </div>
 
+      {/* Hob and Chimney Cleaning Section */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex-[3]">
+          <p className="text-lg text-gray-800">Hob and Chimney Cleaning</p>
+          <p className="text-sm text-gray-500">Cleaning your hob and chimney</p>
+        </div>
+        <div className="flex items-center flex-1">
+          <button
+            onClick={() => setHobAndChimneyCleaning(!hobAndChimneyCleaning)}
+            className={`relative inline-flex items-center h-6 rounded-full w-11 ${hobAndChimneyCleaning ? 'bg-pink-500' : 'bg-gray-300'}`}
+          >
+            <span
+              className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${hobAndChimneyCleaning ? 'translate-x-6' : 'translate-x-1'}`}
+            ></span>
+          </button>
+        </div>
+      </div>
+
       {/* Supplies Section */}
       <div className="flex justify-between items-center mb-4">
-        <span className="text-lg text-gray-800">I will provide cleaning supplies</span>
-        <button
-          onClick={() => setOwnSupplies(!ownSupplies)}
-          className={`relative inline-flex items-center h-6 rounded-full w-11 ${ownSupplies ? 'bg-pink-500' : 'bg-gray-300'}`}
-        >
-          <span
-            className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${ownSupplies ? 'translate-x-6' : 'translate-x-1'}`}
-          ></span>
-        </button>
+        <div className="flex-[3]">
+          <p className="text-lg text-gray-800">I will provide cleaning supplies</p>
+        </div>
+        <div className="flex items-center flex-1">
+          <button
+            onClick={() => setOwnSupplies(!ownSupplies)}
+            className={`relative inline-flex items-center h-6 rounded-full w-11 ${ownSupplies ? 'bg-pink-500' : 'bg-gray-300'}`}
+          >
+            <span
+              className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${ownSupplies ? 'translate-x-6' : 'translate-x-1'}`}
+            ></span>
+          </button>
+        </div>
       </div>
 
       {/* Pet Type Section */}

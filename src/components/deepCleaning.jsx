@@ -4,13 +4,14 @@ import SectionHeading from "./SectionHeading";
 
 const DeepCleaning = ({ currentStep, onBoxCheck, planDuration, addonOptions }) => {
     const [rooms, setRooms] = useState(1);
-    const [bathrooms, setBathrooms] = useState(1);
-    const [receptionRooms, setReceptionRooms] = useState(1);
-    const [kitchens, setKitchens] = useState(1);
-    const [toilets, setToilets] = useState(1);
-    const [hours, setHours] = useState(1.75);
+    const [bathrooms, setBathrooms] = useState(0);
+    const [receptionRooms, setReceptionRooms] = useState(0);
+    const [kitchens, setKitchens] = useState(0);
+    const [toilets, setToilets] = useState(0);
+    const [hours, setHours] = useState(0);
     const [ownSupplies, setOwnSupplies] = useState(true);
     const [washLinen, setWashLinen] = useState(false);
+    const [insideKitchenCabinets, setInsideKitchenCabinets] = useState(false); // New state for the inside kitchen cabinets toggle
 
     // Define max values
     const maxRooms = 10;
@@ -18,7 +19,7 @@ const DeepCleaning = ({ currentStep, onBoxCheck, planDuration, addonOptions }) =
     const maxReceptionRooms = 5;
     const maxKitchens = 5;
     const maxToilets = 10;
-    const maxHours = 7.5;
+    const maxHours = 8;
 
     const increment = (value, setter, max) => setter(prev => (prev + value <= max ? prev + value : prev));
     const decrement = (value, setter, min = 0) => setter(prev => (prev - value >= min ? prev - value : min));
@@ -31,23 +32,6 @@ const DeepCleaning = ({ currentStep, onBoxCheck, planDuration, addonOptions }) =
             />
             <div className="space-y-5">
                 <div className="bg-white rounded-xl p-6">
-                    {/* Rooms */}
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="flex-[3]">
-                            <p className="text-lg text-gray-800">Rooms</p>
-                            <p className="text-sm text-gray-500">rooms including bedrooms and other rooms</p>
-                        </div>
-                        <div className="flex items-center flex-1">
-                            <button onClick={() => decrement(1, setRooms)} className="py-[0px] px-[8px] bg-gray-100 rounded-full">-</button>
-                            <span className="mx-3 text-lg min-w-[2rem] text-center">{rooms}</span>
-                            <button
-                                onClick={() => increment(1, setRooms, maxRooms)}
-                                className={`py-[0px] px-[8px] bg-gray-100 rounded-full ${rooms === maxRooms ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                disabled={rooms === maxRooms}
-                            >+</button>
-                        </div>
-                    </div>
-
                     {/* Bathrooms */}
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex-[3]">
@@ -149,6 +133,14 @@ const DeepCleaning = ({ currentStep, onBoxCheck, planDuration, addonOptions }) =
                         <span className="text-lg text-gray-800">Wash and dry linen and towels</span>
                         <button onClick={() => setWashLinen(!washLinen)} className={`relative inline-flex items-center h-6 rounded-full w-11 ${washLinen ? 'bg-pink-500' : 'bg-gray-300'}`}>
                             <span className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${washLinen ? 'translate-x-6' : 'translate-x-1'}`}></span>
+                        </button>
+                    </div>
+
+                    {/* Inside Kitchen Cabinets */}
+                    <div className="flex justify-between items-center mb-4">
+                        <span className="text-lg text-gray-800">Inside Kitchen Cabinets</span>
+                        <button onClick={() => setInsideKitchenCabinets(!insideKitchenCabinets)} className={`relative inline-flex items-center h-6 rounded-full w-11 ${insideKitchenCabinets ? 'bg-pink-500' : 'bg-gray-300'}`}>
+                            <span className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${insideKitchenCabinets ? 'translate-x-6' : 'translate-x-1'}`}></span>
                         </button>
                     </div>
                 </div>
